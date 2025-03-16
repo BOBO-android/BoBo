@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BoBo"
         tools:targetApi="31" >
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Onboarding1"
+        <activity android:name=".ui.Onboarding1"
             android:exported="false">
 
         </activity>
-        <activity android:name=".Onboarding2"
+        <activity android:name=".ui.Onboarding2"
             android:exported="true">
+
+        </activity>
+
+        <activity android:name=".ui.HomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.BoBo.Material"
+            >
 
         </activity>
     </application>

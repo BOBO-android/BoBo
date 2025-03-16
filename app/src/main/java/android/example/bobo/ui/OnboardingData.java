@@ -1,6 +1,4 @@
-package android.example.bobo;
-
-import java.util.PrimitiveIterator;
+package android.example.bobo.ui;
 
 public class OnboardingData {
     private int imageResId;

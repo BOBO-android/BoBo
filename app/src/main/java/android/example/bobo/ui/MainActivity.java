@@ -1,6 +1,7 @@
-package android.example.bobo;
+package android.example.bobo.ui;
 
 import android.content.Intent;
+import android.example.bobo.R;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -28,13 +29,11 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, Onboarding1.class);
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }
         }, timeout);
     }
 
-    //
-
-    }
+}
