@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="8dp">
+
+    <!-- Navigation Icon -->
+    <ImageView
+        android:id="@+id/nav_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:importantForAccessibility="no"
+        android:pivotX="50%"
+        android:pivotY="50%" />
+
+    <!-- Bottom Arrow (Initially Hidden) -->
+    <ImageView
+        android:id="@+id/nav_arrow"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_arrow"
+        android:visibility="gone" />
+</LinearLayout>
