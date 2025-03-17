@@ -1,4 +1,4 @@
-package android.example.bobo.ui;
+package android.example.bobo.ui.view;
 
 public class OnboardingData {
     private int imageResId;
