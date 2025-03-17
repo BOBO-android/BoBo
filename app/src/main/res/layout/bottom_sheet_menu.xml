@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/transparent"> <!-- Make background transparent -->
+
+    <!-- Main content container with rounded corners -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_white_button"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/option_delete"
+            style="@style/BottomSheetOption"
+            android:text="Delete" />
+
+        <TextView
+            android:id="@+id/option_edit"
+            style="@style/BottomSheetOption"
+            android:text="Edit" />
+
+        <TextView
+            android:id="@+id/option_mark_dish"
+            style="@style/BottomSheetOption"
+            android:text="Mark dish"
+            android:textColor="@color/green" />
+    </LinearLayout>
+
+    <!-- Cancel button with separate rounded background -->
+    <TextView
+        android:id="@+id/option_cancel"
+        style="@style/BottomSheetCancel"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_white_button"
+        android:text="Cancel"
+        android:textColor="@color/red" />
+
+</LinearLayout>

@@ -2,6 +2,7 @@
 <resources>
     <color name="title_onboarding">#363A33</color>
     <color name="description_onboarding">#60655C</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#4CAF50</color>
     <color name="gray">#A9ADA5</color>

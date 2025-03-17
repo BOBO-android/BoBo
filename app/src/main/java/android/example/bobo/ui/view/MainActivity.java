@@ -1,4 +1,4 @@
-package android.example.bobo.ui;
+package android.example.bobo.ui.view;
 
 import android.content.Intent;
 import android.example.bobo.R;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish();
             }

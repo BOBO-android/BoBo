@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Header (Back Button & Centered Title) -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp">
+
+        <!-- Back Button -->
+        <LinearLayout
+            android:id="@+id/back_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:padding="8dp"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_arrow_left" />
+
+            <TextView
+                android:id="@+id/tx_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingStart="4dp" />
+        </LinearLayout>
+
+        <!-- Centered Menu Title -->
+        <TextView
+            android:id="@+id/tx_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <!-- Wrapper for content (RecyclerView & ProgressBar) -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Dish List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="16dp" />
+
+        <!-- Centered Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <!-- "+1 More" -->
+    <TextView
+        android:id="@+id/txt_more_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+1 more"
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Add Dish Button -->
+    <Button
+        android:id="@+id/btn_add_dish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add dish"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"/>
+
+</LinearLayout>

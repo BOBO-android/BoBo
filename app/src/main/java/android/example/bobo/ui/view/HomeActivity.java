@@ -1,5 +1,10 @@
-package android.example.bobo.ui;
+package android.example.bobo.ui.view;
 
+import android.example.bobo.ui.view.Fragments.CartFragment;
+import android.example.bobo.ui.view.Fragments.ExploreFragment;
+import android.example.bobo.ui.view.Fragments.HomeFragment;
+import android.example.bobo.ui.view.Fragments.NotificationsFragment;
+import android.example.bobo.ui.view.Fragments.OrdersFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.MenuItem;

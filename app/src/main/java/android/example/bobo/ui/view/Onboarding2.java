@@ -1,4 +1,4 @@
-package android.example.bobo.ui;
+package android.example.bobo.ui.view;
 
 import android.content.Intent;
 import android.example.bobo.R;
