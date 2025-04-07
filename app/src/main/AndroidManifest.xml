@@ -5,6 +5,7 @@
     <!-- Required for making network requests -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -42,6 +43,31 @@
             android:name=".ui.view.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.BoBo.Material" />
+        <activity android:name=".ui.view.LoginActivity"
+            android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.view.ForgotPasswordActivity"
+            android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.view.SignUpActivity"
+            android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.view.CreateNewPasswordActivity"
+            android:exported="false">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -23,15 +23,12 @@ public class Onboarding2  extends AppCompatActivity {
             return insets;
         });
 
-        // Find the Login Button (Make sure the ID matches your XML)
         Button loginButton = findViewById(R.id.btnLogin);
 
-        // Set Click Listener for the Login Button
         loginButton.setOnClickListener(v -> {
-            // Redirect to HomeActivity
-            Intent intent = new Intent(Onboarding2.this, HomeActivity.class);
+            Intent intent = new Intent(Onboarding2.this, LoginActivity.class);
             startActivity(intent);
-            finish(); // Close Onboarding2 so the user can't go back
+            finish();
         });
     }
 }

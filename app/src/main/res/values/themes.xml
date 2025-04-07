@@ -10,4 +10,8 @@
     <!-- New Material Theme -->
     <style name="Theme.BoBo.Material" parent="Theme.MaterialComponents.Light.NoActionBar">
     </style>
+
+    <style name="Theme.BoBo.Material3" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Tùy chỉnh theme nếu cần -->
+    </style>
 </resources>
