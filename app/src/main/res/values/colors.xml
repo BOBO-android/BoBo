@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="title_onboarding">#363A33</color>
-    <color name="description_onboarding">#60655C</color>
+    <color name="olive_gray">#60655C</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="forgot_pass">#408308</color>
     <color name="green">#4CAF50</color>
     <color name="gray">#A9ADA5</color>
-    <color name="red">#E25839</color>
+    <color name="orange">#E25839</color>
+    <color name="button">#5EAD1D</color>
+    <color name="blue">#24B5D4</color>
+    <color name="red">#FF0000</color>
+    <color name="dark_brownish_gray">#3A3533</color>
+    <color name="light_grayish_green">#E8EBE6</color>
+    <color name="light_gray">#B2B1B0</color>
 </resources>
