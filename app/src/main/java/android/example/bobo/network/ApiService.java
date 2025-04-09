@@ -9,12 +9,16 @@ import android.example.bobo.data.model.ForgotPasswordRequest;
 import android.example.bobo.data.model.ForgotPasswordResponse;
 import android.example.bobo.data.model.LoginRequest;
 import android.example.bobo.data.model.LoginResponse;
+import android.example.bobo.data.model.RegisterRequest;
+import android.example.bobo.data.model.RegisterResponse;
 import android.example.bobo.data.model.ResendCodeRequest;
 import android.example.bobo.data.model.ResendCodeResponse;
 import android.example.bobo.data.model.ResetPasswordRequest;
 import android.example.bobo.data.model.ResetPasswordResponse;
+import android.example.bobo.data.model.VerifyRequest;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -51,4 +55,10 @@ public interface ApiService {
     // ResetPassword
     @POST("auth/reset-password")
     Call<ApiResponse<ResetPasswordResponse>> resetPassword(@Body ResetPasswordRequest request);
+
+    @POST("auth/register")
+    Call<ApiResponse<RegisterResponse>> register(@Body RegisterRequest request);
+
+    @POST("auth/verify")
+    Call<ApiResponse<java.lang.Object>> verify(@Body VerifyRequest request);
 }

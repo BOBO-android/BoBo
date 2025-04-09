@@ -109,10 +109,10 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
 
         // quan sat tu viewmodel
         createNewPasswordViewModel.getCreateNewPasswordMutableLiveData().observe(this , response ->{
-            showDiaLog(response.getMessage());
+            showDiaLog(response.getMessage(),true);
         });
         createNewPasswordViewModel.getErrorLiveData().observe(this, error -> {
-            showDiaLog(error);
+            showDiaLog(error,false);
         });
 
         // xu ly continue click
@@ -141,16 +141,16 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
             return false;
         }
 
-        boolean hasNumber = password.matches(".*[0-9].*");
         boolean hasSpecialChar = password.matches(".*[@#$%^&+=!].*");
-        if (!hasNumber && !hasSpecialChar) {
-            newPasswordInputLayout.setError("Password must contain at least 1 number or special character (e.g., @, #, $)");
+        if (!hasSpecialChar) {
+            newPasswordInputLayout.setError("Password must contain at least 1 special character (e.g., @, #, $)");
             return false;
         }
 
         newPasswordInputLayout.setError(null);
         return true;
     }
+
     private boolean validateRePassword(String newPassword, String rePassword) {
         if (rePassword.isEmpty()) {
             rePasswordInputLayout.setError("Please confirm your password");
@@ -171,11 +171,12 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         }
         return validateRePassword(newPassword, rePassword);
     }
-    private void showDiaLog(String message){
+    private void showDiaLog(String message, boolean isSuccess){
         AlertDialog.Builder builder = new AlertDialog.Builder(CreateNewPasswordActivity.this);
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_error, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
         errorMessageTV = dialogView.findViewById(R.id.error_message);
         errorMessageTV.setText(message);
         errorbutton = dialogView.findViewById(R.id.btn_back_error);
@@ -184,9 +185,11 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         }
         errorbutton.setOnClickListener( v -> {
             dialog.dismiss();
-            Intent intent = new Intent(CreateNewPasswordActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            if (isSuccess) {
+                Intent intent = new Intent(CreateNewPasswordActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
         dialog.show();
     }
