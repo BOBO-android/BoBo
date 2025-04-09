@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("username", response.getUser().getUsername());
                 editor.apply();
 
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent intent = new Intent(LoginActivity.this, OrdersActivity.class);
                 startActivity(intent);
                 finish();
         });
@@ -126,7 +126,6 @@ public class LoginActivity extends AppCompatActivity {
             }else {
                 loginViewModel.login(email,password);
             }
-
         });
 
         // xu ly su kien sign up

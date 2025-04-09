@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:id="@+id/design_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_sheet_bg"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp">
+
+        <!-- Phần nội dung chính -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Header with Close Button -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:id="@+id/btnClose"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_close" />
+
+                </RelativeLayout>
+
+                <!-- Customer Info Section -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:id="@+id/customerImage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatars"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/customerImage"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:id="@+id/customerName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cliff Rogers"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/customerType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Customer"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageButton
+                            android:id="@+id/btnMessage"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/outline_button_background"
+                            android:backgroundTint="#F1F1F1"
+                            android:contentDescription="Message customer"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_message" />
+
+                        <ImageButton
+                            android:id="@+id/btnCall"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/outline_button_background"
+                            android:backgroundTint="#F1F1F1"
+                            android:contentDescription="Call customer"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_telephone" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEEEEE"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Estimated Time -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_clock"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Estimated time"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <TextView
+                        android:id="@+id/estimatedTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30mins"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Order Status Timeline -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Left Side: Circles and Lines -->
+                    <LinearLayout
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <!-- Active Circle -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_circle_active"
+                            android:contentDescription="Active step"/>
+
+                        <!-- Vertical Line 1 -->
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="56dp"
+                            android:background="#EEEEEE"/>
+
+                        <!-- Inactive Circle 1 -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_circle_inactive"
+                            android:contentDescription="Inactive step"/>
+
+                        <!-- Vertical Line 2 -->
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="50dp"
+                            android:background="#EEEEEE"/>
+
+                        <!-- Inactive Circle 2 -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_circle_inactive"
+                            android:contentDescription="Inactive step"/>
+                    </LinearLayout>
+
+                    <!-- Right Side: Status Text -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <!-- Active Status -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Preparing your order"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="We are preparing your food with magic and care"
+                                android:textColor="@android:color/darker_gray"
+                                android:textSize="14sp"
+                                android:layout_marginTop="4dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Time Req: "
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp"
+                                    android:layout_marginTop="4dp"/>
+                                <TextView
+                                    android:id="@+id/timeRequired"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="20mins"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp"
+                                    android:layout_marginTop="4dp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Inactive Status 1 -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Your order is on the way"
+                            android:textColor="#AAAAAA"
+                            android:textSize="16sp"
+                            android:layout_marginTop="12dp"/>
+
+                        <!-- Inactive Status 2 -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Your order has been delivered"
+                            android:textColor="#AAAAAA"
+                            android:textSize="16sp"
+                            android:layout_marginTop="50dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Delivery Information -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_location"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Deliver to"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <TextView
+                        android:id="@+id/deliveryAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Home"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Amount Paid -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_payment"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Amount Paid"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <TextView
+                        android:id="@+id/amountPaid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$32.12"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Food Items Section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Food to be delivered"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="12dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/foodItemsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Update Button ở dưới cùng -->
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="20dp"
+            android:text="Update"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_button_green"/>
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
