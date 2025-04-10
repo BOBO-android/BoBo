@@ -28,8 +28,12 @@ public class ApiResponse<T> {
         return error;
     }
 
+    public int getStatusCode() {
+        return statusCode;
+    }
+
     // Custom method to check if response is successful
     public boolean isSuccess() {
-        return statusCode == 200 && data != null;
+        return statusCode >= 200 && statusCode <= 299 && data != null;
     }
 }
