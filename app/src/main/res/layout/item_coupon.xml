@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="#EEEEEE"
+    android:gravity="center_vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="10dp">
+
+        <TextView
+            android:id="@+id/coupon_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="COUPON_CODE"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            />
+
+        <TextView
+            android:id="@+id/coupon_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description of the coupon"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+    <RadioButton
+        android:id="@+id/btn_check_coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="48dp"
+        android:minHeight="48dp" />
+</LinearLayout>

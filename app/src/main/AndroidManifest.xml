@@ -41,7 +41,32 @@
         <activity
             android:name=".ui.view.HomeActivity"
             android:exported="true"
-            android:theme="@style/Theme.BoBo.Material" />
+            android:theme="@style/Theme.BoBo.Material"
+           />
+        <activity
+            android:name=".ui.view.PlaceOrderActivity"
+            android:exported="false"
+            />
+        <activity
+            android:name=".ui.view.AddCouponActivity"
+            android:exported="false"
+            />
+        <activity android:name=".ui.view.CheckoutActivity"
+                    android:exported="false"
+            />
+        <activity android:name=".ui.view.SelectAddressActivity"
+                    android:exported="false"
+            />
+        <activity android:name=".ui.view.SelectPaymentActivity"
+            android:exported="false"
+            />
+        <activity android:name=".ui.view.OrderPlacedActivity"
+            android:exported="false"
+            />
+        <activity
+            android:name=".ui.view.CancelOrderActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

@@ -7,4 +7,9 @@
     <color name="green">#4CAF50</color>
     <color name="gray">#A9ADA5</color>
     <color name="red">#E25839</color>
+    <color name="star_selected">#FF9800</color>
+    <color name="star_half">#FFC107</color>
+    <color name="star_unselected">#BDBDBD</color>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_dark">#757575</color>
 </resources>
