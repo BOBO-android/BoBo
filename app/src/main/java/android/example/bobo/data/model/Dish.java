@@ -52,6 +52,9 @@ public class Dish {
     @SerializedName("slug")
     private String slug;
 
+    @SerializedName("finalPrice")
+    private double finalPrice;
+
     // Getters
     public String getId() {
         return id;
@@ -116,4 +119,6 @@ public class Dish {
     public String getSlug() {
         return slug;
     }
+
+    public double getFinalPrice() { return finalPrice; }
 }

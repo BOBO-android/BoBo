@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("username", response.getUser().getUsername());
                 editor.apply();
 
-                Intent intent = new Intent(LoginActivity.this, OrdersActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
         });
