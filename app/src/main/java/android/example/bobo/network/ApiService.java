@@ -71,38 +71,4 @@ public interface ApiService {
             @Query("pageSize") int pageSize
     );
 
-    @GET("carts")
-    Call<ApiResponse<Cart>> getCart(
-            @Header("Authorization") String token
-    );
-
-    @PATCH("carts/items/{foodId}")
-    Call<ApiResponse<Cart>> updateCartItem(
-            @Header("Authorization") String token,
-            @Path("foodId") String foodId,
-            @Body QuantityBody quantityBody
-    );
-
-    @DELETE("carts/items/{foodId}")
-    Call<ApiResponse<Cart>> removeCartItem(
-            @Header("Authorization") String token,
-            @Path("foodId") String foodId
-    );
-
-    @GET("checkout")
-    Call<ApiResponse<Object>> checkout();
-
-    // Class để gửi body
-    class QuantityBody {
-        @SerializedName("quantity")
-        private int quantity;
-
-        public QuantityBody(int quantity) {
-            this.quantity = quantity;
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
-    }
 }

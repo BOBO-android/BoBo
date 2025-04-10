@@ -32,7 +32,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodVi
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         FoodItem item = foodItems.get(position);
 
-        holder.imgFood.setImageResource(item.getImageResource());
+//        holder.imgFood.setImageResource(item.getImageUrl());
         holder.tvQuantity.setText("x" + item.getQuantity());
     }
 
@@ -47,8 +47,8 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodVi
 
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgFood = itemView.findViewById(R.id.imgFood);
-            tvQuantity = itemView.findViewById(R.id.tvQuantity);
+//            imgFood = itemView.findViewById(R.id.imgFood);
+//            tvQuantity = itemView.findViewById(R.id.tvQuantity);
         }
     }
 }

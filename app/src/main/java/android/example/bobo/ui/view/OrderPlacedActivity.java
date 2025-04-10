@@ -17,15 +17,15 @@ public class OrderPlacedActivity extends AppCompatActivity {
         Button btnTrackOrder = findViewById(R.id.btn_track_order);
 
         btnClose.setOnClickListener(v -> {
-            Intent intent = new Intent(OrderPlacedActivity.this, MainActivity.class);
+            Intent intent = new Intent(OrderPlacedActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
 
         });
-        btnTrackOrder.setOnClickListener(v -> {
-            OrderTrackingBottomSheet bottomSheet = OrderTrackingBottomSheet.newInstance("1");
-            bottomSheet.show(getSupportFragmentManager());
-        });
+//        btnTrackOrder.setOnClickListener(v -> {
+//            OrderTrackingBottomSheet bottomSheet = OrderTrackingBottomSheet.newInstance("1");
+//            bottomSheet.show(getSupportFragmentManager());
+//        });
     }
 }
