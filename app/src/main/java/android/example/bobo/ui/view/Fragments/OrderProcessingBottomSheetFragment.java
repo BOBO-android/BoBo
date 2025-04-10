@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.example.bobo.R;
 import android.example.bobo.data.model.FoodItem;
 import android.example.bobo.data.repository.StoreOrderRepository;
+import android.example.bobo.ui.adapters.FoodItemsAdapter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
