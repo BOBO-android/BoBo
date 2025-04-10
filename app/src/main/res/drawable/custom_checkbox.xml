@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Trạng thái khi checkbox được tích -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" /> <!-- Bo góc 8dp -->
+            <solid android:color="#4CAF50" /> <!-- Màu xanh lá cây khi được tích -->
+            <stroke android:width="1dp" android:color="#4CAF50" /> <!-- Viền cùng màu xanh -->
+        </shape>
+
+    </item>
+
+    <item android:state_checked="false">
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" />
+            <solid android:color="#F4F7F2" />
+            <stroke android:width="1dp" android:color="#E8EBE6" />
+        </shape>
+    </item>
+</selector>
