@@ -1,15 +1,18 @@
 package android.example.bobo.ui.view;
 
 import android.content.Intent;
-import android.example.bobo.R;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.example.bobo.R;
+import android.example.bobo.data.model.OnboardingData;
+import android.example.bobo.ui.viewmodel.OnboardingViewModel;
 
 public class Onboarding1 extends AppCompatActivity {
     private ImageView imageView;
@@ -17,32 +20,11 @@ public class Onboarding1 extends AppCompatActivity {
     private TextView descriptionTV;
     private Button skipBTN;
     private Button nextBTN;
-
-    private OnboardingData[]  onboardingData = new OnboardingData []{
-        new OnboardingData(
-                R.drawable.image_onboarding1,
-                "Welcome to the most \n tastiest app",
-                "You know, this app is edible meaning you \n can eat it!"
-        ),
-        new OnboardingData(
-                R.drawable.image_onboarding2,
-                "We use nitro on \n bicycles for delivery!",
-                "For very fast delivery we use nitro on \n bicycles, kidding, but we’re very fast."
-        ),
-        new OnboardingData(
-                R.drawable.image_onboarding3,
-                "We’re the besties \n of birthday peoples",
-                "We send cakes to our plus members, (only \n one cake per person)"
-        )
-
-
-    };
-
-    private int currentPage = 0;
-
+    private View dot1, dot2, dot3;
+    private OnboardingViewModel onboardingViewModel;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.on_boarding1);
 
@@ -52,55 +34,53 @@ public class Onboarding1 extends AppCompatActivity {
         descriptionTV = findViewById(R.id.obDescription);
         nextBTN = findViewById(R.id.btnNext);
         skipBTN = findViewById(R.id.btnSkip);
+        dot1 = findViewById(R.id.dot1);
+        dot2 = findViewById(R.id.dot2);
+        dot3 = findViewById(R.id.dot3);
 
-        updateContent();
-        updateDots();
-        nextBTN.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                currentPage++;
-                if( currentPage <onboardingData.length){
-                    updateContent();
-                    updateDots();
+        // Khởi tạo ViewModel
+        onboardingViewModel = new ViewModelProvider(this).get(OnboardingViewModel.class);
+
+        // Quan sát dữ liệu từ ViewModel
+        onboardingViewModel.getOnboardingDataLiveData().observe(this, onboardingDataList -> {
+            // Quan sát trang hiện tại để cập nhật nội dung
+            onboardingViewModel.getCurrentPageLiveData().observe(this, currentPage -> {
+                updateContent(onboardingDataList.get(currentPage));
+                updateDots(currentPage);
+                // Kiểm tra nếu là trang cuối, chuyển hướng khi nhấn "Next"
+                if (onboardingViewModel.isLastPage()) {
+                    nextBTN.setOnClickListener(v -> {
+                        startActivity(new Intent(Onboarding1.this, Onboarding2.class));
+                        finish();
+                    });
                 } else {
-                    startActivity(new Intent(Onboarding1.this, Onboarding2.class));
-                    finish();
+                    nextBTN.setOnClickListener(v -> onboardingViewModel.nextPage());
                 }
-
-            }
+            });
         });
 
-        skipBTN.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Onboarding1.this, Onboarding2.class));
-            }
+        // Xử lý sự kiện nhấn nút "Skip"
+        skipBTN.setOnClickListener(v -> {
+            onboardingViewModel.skip();
+            startActivity(new Intent(Onboarding1.this, Onboarding2.class));
+            finish();
         });
-
-    }
-    private void updateContent() {
-        if (currentPage < onboardingData.length) {
-            OnboardingData data = onboardingData[currentPage];
-            imageView.setImageResource(data.getImageResId());
-            titleTV.setText(data.getTitle());
-            descriptionTV.setText(data.getDescription());
-
-        }
     }
 
-    private void updateDots(){
+    private void updateContent(OnboardingData data) {
+        imageView.setImageResource(data.getImageResId());
+        titleTV.setText(data.getTitle());
+        descriptionTV.setText(data.getDescription());
+    }
 
-        View dot1 = findViewById(R.id.dot1);
-        View dot2 = findViewById(R.id.dot2);
-        View dot3 = findViewById(R.id.dot3);
-
-        // rest trang thai dot
+    private void updateDots(int currentPage) {
+        // Reset trạng thái dot
         dot1.setBackgroundResource(R.drawable.dot_unselected_background);
         dot2.setBackgroundResource(R.drawable.dot_unselected_background);
         dot3.setBackgroundResource(R.drawable.dot_unselected_background);
 
-        switch (currentPage){
+        // Cập nhật dot được chọn
+        switch (currentPage) {
             case 0:
                 dot1.setBackgroundResource(R.drawable.dot_selected_background);
                 break;
@@ -111,7 +91,5 @@ public class Onboarding1 extends AppCompatActivity {
                 dot3.setBackgroundResource(R.drawable.dot_selected_background);
                 break;
         }
-        System.out.println(currentPage);
     }
-
 }

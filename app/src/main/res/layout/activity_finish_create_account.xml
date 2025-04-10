@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@android:color/white">
+
+    <ImageButton
+        android:id="@+id/close_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/close_icon"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:contentDescription="Close" />
+    <!-- Biểu tượng dấu kiểm -->
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="170dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/finesh_create_acount"/>
+
+    <!-- Dòng chữ thông báo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_extrabold"
+        android:text="You can now order your favorite dishes quckly and convenietly"
+        android:gravity="center"
+        android:textColor="@color/title_onboarding"
+        android:textSize="33dp" />
+    <Button
+        android:id="@+id/get_started_now_button"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_next_background"
+        android:fontFamily="@font/poppins_medium"
+        android:stateListAnimator="@null"
+        android:text="Get started now"
+        android:textColor="@color/white"
+        android:textFontWeight="700"
+        android:textSize="16dp"
+        />
+
+</LinearLayout>
