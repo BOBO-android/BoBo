@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.example.bobo.R;
-import android.example.bobo.ui.adapters.OrdersPagerAdapter;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -41,8 +40,8 @@ public class OrdersActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
 
         // Set up ViewPager Adapter
-        OrdersPagerAdapter adapter = new OrdersPagerAdapter(this, token, storeId); // Pass activity
-        viewPager.setAdapter(adapter);
+//        OrdersPagerAdapter adapter = new OrdersPagerAdapter(this, token, storeId); // Pass activity
+//        viewPager.setAdapter(adapter);
 
         // Attach TabLayout with ViewPager2
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {

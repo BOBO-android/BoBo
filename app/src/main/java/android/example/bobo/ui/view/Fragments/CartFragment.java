@@ -8,6 +8,7 @@ import android.example.bobo.data.repository.CartRepository;
 import android.example.bobo.ui.adapters.CartAdapter;
 //import android.example.bobo.ui.view.LoginActivity;
 import android.example.bobo.ui.view.PlaceOrderActivity;
+import android.example.bobo.utils.TokenManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,12 +48,15 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
 
     // Repository
     private CartRepository cartRepository;
+    private TokenManager tokenManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im52aW5oMTYwMkBnbWFpbC5jb20iLCJzdWIiOiI2N2Y2YjJiOWZkMjc2MTI4N2ViMzExYWMiLCJpYXQiOjE3NDQzMDE0MTUsImV4cCI6MTc0NDMwMzIxNX0.0erSFJ361NdNA04UZn-cY1liWw0mms9q6_Y-Ab7qiM8";
-        cartRepository = new CartRepository(token);
+        cartRepository = new CartRepository();
+        tokenManager = new TokenManager(getContext());
+
+        cartRepository.setAuthToken(tokenManager.getToken());
     }
 
     @Nullable
@@ -136,24 +140,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
             progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         });
 
-        // Quan sát thông báo lỗi
-        cartRepository.getErrorMessage().observe(getViewLifecycleOwner(), message -> {
-            if (message != null && !message.isEmpty()) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-
-                // Comment phần xử lý lỗi đăng nhập
-                /*
-                // Kiểm tra nếu lỗi là do token không hợp lệ hoặc hết hạn
-                if (message.contains("Unauthorized") || message.contains("401")) {
-                    // Chuyển về màn hình đăng nhập
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
-                */
-            }
-        });
-
         // Quan sát trạng thái giỏ hàng trống
         cartRepository.isEmpty().observe(getViewLifecycleOwner(), isEmpty -> {
             if (isEmpty) {
@@ -180,7 +166,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
 
     private void navigateToExplore() {
         if (getActivity() != null) {
-
             BottomNavigationView bottomNav = getActivity().findViewById(R.id.bottom_navigation);
             bottomNav.setSelectedItemId(R.id.nav_explore);
         }

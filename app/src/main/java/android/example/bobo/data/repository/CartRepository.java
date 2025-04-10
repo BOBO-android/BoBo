@@ -2,13 +2,20 @@ package android.example.bobo.data.repository;
 
 import android.example.bobo.data.model.AddToCartRequest;
 import android.example.bobo.data.model.ApiResponse;
+import android.example.bobo.data.model.Cart;
+import android.example.bobo.data.model.CartItem;
+import android.example.bobo.data.model.QuantityBody;
 import android.example.bobo.network.CartApiService;
-import android.example.bobo.network.FoodService;
 import android.example.bobo.network.RetrofitClient;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,11 +24,15 @@ import retrofit2.Retrofit;
 
 public class CartRepository {
     private static final String TAG = "CartRepository";
-
+    private String authToken ;
     private final CartApiService cartApiService;
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private final MutableLiveData<ApiResponse<Object>> cartResponse = new MutableLiveData<>();
+
+    private MutableLiveData<List<CartItem>> cartItems = new MutableLiveData<>();
+    private MutableLiveData<Double> totalPrice = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isEmpty = new MutableLiveData<>();
 
     public CartRepository() {
         this.cartApiService = RetrofitClient.getInstance().create(CartApiService.class);
@@ -71,13 +82,12 @@ public class CartRepository {
         if (authToken == null || authToken.isEmpty()) {
             errorMessage.setValue("Thiếu token xác thực");
             isLoading.setValue(false);
-            isEmpty.setValue(true);
             Log.e(TAG, "AuthToken is null or empty");
             return;
         }
 
         isLoading.setValue(true);
-        apiService.getCart(authToken).enqueue(new Callback<ApiResponse<Cart>>() {
+        cartApiService.getCart(authToken).enqueue(new Callback<ApiResponse<Cart>>() {
             @Override
             public void onResponse(Call<ApiResponse<Cart>> call, Response<ApiResponse<Cart>> response) {
                 isLoading.setValue(false);
@@ -126,7 +136,7 @@ public class CartRepository {
             public void onFailure(Call<ApiResponse<Cart>> call, Throwable t) {
                 isLoading.setValue(false);
                 errorMessage.setValue("Network error: " + t.getMessage());
-                isEmpty.setValue(true);
+//                isEmpty.setValue(true);
                 Log.e(TAG, "Network Error: " + t.getMessage(), t);
             }
         });
@@ -149,9 +159,9 @@ public class CartRepository {
 
         Call<ApiResponse<Cart>> call;
         if (newQuantity > 0) {
-            call = apiService.updateCartItem(authToken, foodId, new ApiService.QuantityBody(newQuantity));
+            call = cartApiService.updateCartItem(authToken, foodId, new QuantityBody(newQuantity));
         } else {
-            call = apiService.removeCartItem(authToken, foodId);
+            call = cartApiService.removeCartItem(authToken, foodId);
         }
 
         call.enqueue(new Callback<ApiResponse<Cart>>() {
@@ -220,7 +230,7 @@ public class CartRepository {
                                 // Xử lý giỏ hàng trống
                                 cartItems.setValue(new ArrayList<>());
                                 totalPrice.setValue(0.0);
-                                isEmpty.setValue(true);
+//                                isEmpty.setValue(true);
                                 Log.d(TAG, "Cart is empty after update");
                             }
                         } else {
@@ -274,9 +284,6 @@ public class CartRepository {
         return isLoading;
     }
 
-    public LiveData<String> getErrorMessage() {
-        return errorMessage;
-    }
 
     public LiveData<Boolean> isEmpty() {
         return isEmpty;
@@ -284,6 +291,18 @@ public class CartRepository {
 
     public void refreshCart() {
         fetchCartItems();
+    }
+
+    public void setAuthToken(String token){
+        if (token != null && !token.isEmpty()) {
+            if (!token.startsWith("Bearer ")) {
+                this.authToken = "Bearer " + token;
+            } else {
+                this.authToken = token;
+            }
+        } else {
+            this.authToken = null;
+        }
     }
 
     public void removeItem(String foodId) {
@@ -299,9 +318,6 @@ public class CartRepository {
         listener.onSuccess("Chuyển đến trang đặt hàng");
     }
 
-    public void setAuthToken(String token) {
-        this.authToken = token;
-    }
 
     public interface OnCheckoutListener {
         void onSuccess(String message);

@@ -1,6 +1,5 @@
 package android.example.bobo.ui.view.Fragments;
 
-import android.example.bobo.ui.adapters.OrdersPagerAdapter;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,6 @@ import android.example.bobo.R;
 public class OrdersFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private OrdersPagerAdapter ordersPagerAdapter;
 
     @Nullable
     @Override
@@ -27,8 +25,7 @@ public class OrdersFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
 
-        ordersPagerAdapter = new OrdersPagerAdapter(this);
-        viewPager.setAdapter(ordersPagerAdapter);
+//        ordersPagerAdapter = new OrdersPagerAdapter(this);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             if (position == 0) {
