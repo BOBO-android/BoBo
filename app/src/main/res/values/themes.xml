@@ -9,6 +9,7 @@
 
     <!-- New Material Theme -->
     <style name="Theme.BoBo.Material" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
     </style>
 
     <style name="BottomSheetTheme" parent="Theme.AppCompat.Light.NoActionBar">
