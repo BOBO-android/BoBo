@@ -25,21 +25,9 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
-        <item name="android:windowEnterAnimation">@anim/zoom_in</item>
-        <item name="android:windowExitAnimation">@anim/zoom_out</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="shapeAppearanceOverlay">@style/BottomSheetShape</item>
-    </style>
-
     <style name="BottomSheetShape">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">24dp</item>
-    </style>
-
-    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="BottomSheetOption">
@@ -58,6 +46,19 @@
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/bottom_sheet_bg</item>
     </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="behavior_peekHeight">600dp</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_skipCollapsed">false</item>
+    </style>
+
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>

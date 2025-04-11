@@ -16,6 +16,7 @@ import android.example.bobo.data.model.ResendCodeRequest;
 import android.example.bobo.data.model.ResendCodeResponse;
 import android.example.bobo.data.model.ResetPasswordRequest;
 import android.example.bobo.data.model.ResetPasswordResponse;
+import android.example.bobo.data.model.UserOrder;
 import android.example.bobo.data.model.VerifyRequest;
 import com.google.gson.annotations.SerializedName;
 
@@ -70,5 +71,9 @@ public interface ApiService {
             @Query("current") int currentPage,
             @Query("pageSize") int pageSize
     );
-
+    @GET("orders")
+    Call<ApiResponse<List<UserOrder>>> getUserOrders(
+            @Header("Authorization") String token,
+            @Query("customerId") String customerId
+    );
 }
