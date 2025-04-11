@@ -31,9 +31,10 @@
         <ImageView
             android:id="@+id/image2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/vector_logo_onboarding" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/ic_logo2" />
 
         <ImageView
             android:id="@+id/obImage"

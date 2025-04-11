@@ -11,9 +11,9 @@ import retrofit2.http.Part;
 
 public interface ImageService {
     @Multipart
-    @POST("api/v1/media/images/upload")
+    @POST("media/images/upload")
     Call<UploadResponse> uploadImage(
             @Header("Authorization") String token,
-            @Part MultipartBody.Part file
+            @Part MultipartBody.Part image
     );
 }

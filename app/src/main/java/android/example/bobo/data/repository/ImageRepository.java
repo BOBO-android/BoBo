@@ -30,7 +30,7 @@ public class ImageRepository {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), imageFile);
 
         // Tạo MultipartBody.Part
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", imageFile.getName(), requestFile);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("image", imageFile.getName(), requestFile);
 
         // Thêm "Bearer " vào token nếu cần
         String authToken = token.startsWith("Bearer ") ? token : "Bearer " + token;
@@ -43,13 +43,13 @@ public class ImageRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Lỗi: " + response.code() + " - " + response.message());
+                    callback.onError("Error: " + response.code() + " - " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<UploadResponse> call, Throwable t) {
-                callback.onError("Lỗi kết nối: " + t.getMessage());
+                callback.onError("Network Error: " + t.getMessage());
             }
         });
     }
