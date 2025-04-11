@@ -52,6 +52,10 @@ public class Dish {
     @SerializedName("slug")
     private String slug;
 
+
+    public Dish(String number, String donutBox, double v, String assortedDeliciousDonuts, String store1, boolean b, int i, int i1, String url, boolean b1, Object o, boolean b2, double v1, String s, String s1) {
+    }
+
     // Getters
     public String getId() {
         return id;

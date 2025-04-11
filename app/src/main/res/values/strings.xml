@@ -1,5 +1,30 @@
 <resources>
-    <string name="app_name">BoBo</string>
+    <string name="app_name" translatable="false">BoBo</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="back" translatable="false">Back</string>
+    <string name="register">Register Your Store</string>
+    <string name="text_title">You haven\'t set up a store yet</string>
+    <string name="btb_register">Register</string>
+    <string name="back_text">Back</string>
+    <string name="image_description">image_description</string>
+    <string name="app_logo">app_logo</string>
+    <string name="continue_button">Continue\n</string>
+    <string name="register_instruction">The service type on BOBO FOOD must align with the store\'s main business products</string>
+    <string name="terms_and_conditions">I agree to and accept the terms  conditions</string>
+    <string name="cancle_text">Cancle</string>
+    <string name="menu_text">Menu</string>
+    <string name="btn_save">Save</string>
+    <string name="Save_draft">Save draft</string>
+    <string name="upload_dish">Choose the main image for the dish</string>
+    <string name="dish_name">dish name</string>
+    <string name="description">description</string>
+    <string name="price">price</string>
+    <string name="verry_otp">Verify your email</string>
+    <string name="title_email">Enter the verification code sent to your email xxxxxxx@gmail.com</string>
+    <string name="not_code">Didn’t received the code?</string>
+    <string name="resend">Resend</string>
+    <string name="btn_complete">Complete</string>
+    <string name="text_title_finish">Store info under review</string>
+    <string name="text_title_finish_02">You will receive the review result via the email</string>
 </resources>

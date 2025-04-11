@@ -6,9 +6,12 @@
     android:background="@color/white">
 
     <!-- Header (Back Button & Centered Title) -->
+
+    <!-- Wrapper for content (RecyclerView & ProgressBar) -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:paddingVertical="8dp">
 
         <!-- Back Button -->
@@ -16,26 +19,27 @@
             android:id="@+id/back_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_alignParentStart="true"
             android:gravity="center_vertical"
-            android:layout_alignParentStart="true">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/btn_back"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:padding="8dp"
                 android:contentDescription="Back"
+                android:padding="8dp"
                 android:src="@drawable/ic_arrow_left" />
 
             <TextView
                 android:id="@+id/tx_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="4dp"
                 android:text="Back"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:paddingStart="4dp" />
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/color_typography_pagarap"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <!-- Centered Menu Title -->
@@ -43,47 +47,48 @@
             android:id="@+id/tx_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Menu"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_centerInParent="true" />
+            android:text="Menu"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/color_typography_heading"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
-    <!-- Wrapper for content (RecyclerView & ProgressBar) -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="712dp">
 
         <!-- Dish List -->
+
+        <!-- Centered Progress Bar -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="16dp" />
+            android:layout_height="696dp"
+            android:layout_marginTop="16dp" />
 
-        <!-- Centered Progress Bar -->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
     <!-- "+1 More" -->
     <TextView
         android:id="@+id/txt_more_items"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
         android:text="+1 more"
         android:textColor="@color/green"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center_horizontal" />
+        android:textSize="15sp" />
 
     <!-- Add Dish Button -->
     <Button
@@ -91,8 +96,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add dish"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="15sp"
         android:textColor="@color/white"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_button"/>
 
 </LinearLayout>

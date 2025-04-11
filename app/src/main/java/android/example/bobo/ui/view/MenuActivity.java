@@ -24,7 +24,10 @@ public class MenuActivity extends AppCompatActivity implements DishAdapter.OnDis
 
     private RecyclerView recyclerView;
     private DishAdapter adapter;
+    Button btnAddDish;
+    ImageView btnBack;
     private ProgressBar progressBar;
+    private MenuViewModel menuViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,46 +35,37 @@ public class MenuActivity extends AppCompatActivity implements DishAdapter.OnDis
         setContentView(R.layout.activity_menu);
 
         recyclerView = findViewById(R.id.recyclerView);
-        Button btnAddDish = findViewById(R.id.btn_add_dish);
-        ImageView btnBack = findViewById(R.id.btn_back);
+        btnAddDish = findViewById(R.id.btn_add_dish);
+        btnBack = findViewById(R.id.btn_back);
         progressBar = findViewById(R.id.progressBar);
 
         // Initialize ViewModel
-        MenuViewModel menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
+        menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
 
-        // Show ProgressBar while fetching data
-        progressBar.setVisibility(View.VISIBLE);
-
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxvdmFuYmFuZ2JveDk5QGdtYWlsLmNvbSIsInN1YiI6IjY3ZDc3NTdhMTA2ODdkNzQzNDkyNjk1NCIsImlhdCI6MTc0MjIyNTI2OSwiZXhwIjoxNzQyMjI3MDY5fQ.3fJvCeBSZyz3SoXPkkqIjdrTZSLSke80vfrsYNhde6w";
-
-        // Call this to fetch data
-        menuViewModel.fetchDishes("67d775af10687d743492695a", 1, 10, token);
-
-        // Observe LiveData for dishes
-        menuViewModel.getDishes().observe(this, dishes -> {
-            progressBar.setVisibility(View.GONE); // Hide progress bar
-            if (dishes != null && !dishes.isEmpty()) {
-                adapter = new DishAdapter(this, dishes, this);
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                recyclerView.setAdapter(adapter);
-            } else {
-                Toast.makeText(this, "No dishes found", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Set up RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new DishAdapter(this, new ArrayList<>(), this); // Initialize with empty list
+        recyclerView.setAdapter(adapter);
 
         // Observe LiveData for loading state
         menuViewModel.getIsLoading().observe(this, isLoading -> {
-            if (isLoading != null) {
-                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-            }
+            progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
+
+        // Observe LiveData for dishes
+        menuViewModel.getDishes().observe(this, dishes -> {
+            adapter.setDishList(dishes);
         });
 
         // Observe LiveData for error messages
         menuViewModel.getErrorMessage().observe(this, errorMsg -> {
-            if (errorMsg != null && !errorMsg.isEmpty()) {
-                Toast.makeText(this, "Error: " + errorMsg, Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(this, "Error: " + errorMsg, Toast.LENGTH_LONG).show();
         });
+
+        // Initial data fetching
+        String token = "YOUR_AUTH_TOKEN"; // Replace with your actual token
+        String storeId = "YOUR_STORE_ID"; // Replace with your actual store ID
+        menuViewModel.fetchDishes(storeId, 1, 10, token); // Fetch initial data
 
         btnBack.setOnClickListener(v -> finish());
 
@@ -84,15 +78,18 @@ public class MenuActivity extends AppCompatActivity implements DishAdapter.OnDis
     @Override
     public void onEditClicked(Dish dish) {
         Toast.makeText(this, "Edit: " + dish.getName(), Toast.LENGTH_SHORT).show();
+        // Implement edit functionality
     }
 
     @Override
     public void onDeleteClicked(Dish dish) {
         Toast.makeText(this, "Delete: " + dish.getId(), Toast.LENGTH_SHORT).show();
+        // Implement delete functionality
     }
 
     @Override
     public void onMarkAsOutOfStock(Dish dish) {
         Toast.makeText(this, "Out of Stock: " + dish.getId(), Toast.LENGTH_SHORT).show();
+        // Implement out of stock functionality
     }
 }

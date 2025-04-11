@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Tiêu đề -->
+
+    <!-- Hình ảnh món ăn -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/tx_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="@string/cancle_text"
+            android:textColor="@color/color_typography_pagarap"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tx_title_menu"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="146dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="135dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center_horizontal"
+            android:text="@string/menu_text"
+            android:textColor="@color/color_typography_heading"
+            android:textSize="17sp" />
+
+
+    </RelativeLayout>
+
+    <!-- Nút chọn hình ảnh -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_dashed_rectangle"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Biểu tượng dấu cộng -->
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_image_plus" />
+
+        <!-- Văn bản -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="@string/upload_dish"
+            android:textColor="@color/color_typography_inactive"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_name_dish"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints=""
+        android:background="@drawable/rounded_input_text_background"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/dish_name"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="@color/color_typography_inactive"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_description_dish"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_input_text_background"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/description"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="@color/color_typography_inactive"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_price_dish"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_input_text_background"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/price"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="@color/color_typography_inactive"
+        android:textSize="15sp"
+        tools:ignore="Autofill" />
+
+    <!-- Trạng thái (bật/tắt) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        android:background="#F9FAF8"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/color_typography_heading"
+            android:textSize="15sp"
+            android:text="@string/Save_draft" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchDraft"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <!-- Nút Save -->
+    <Button
+        android:id="@+id/btn_Save"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="200dp"
+        android:text="@string/btn_save"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="15sp"
+        android:background="@drawable/rounded_button"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
