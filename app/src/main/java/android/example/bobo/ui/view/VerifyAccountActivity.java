@@ -76,7 +76,7 @@ public class VerifyAccountActivity extends AppCompatActivity {
         verifyAccountViewModel = new ViewModelProvider(this).get(VerifyAccountViewModel.class);
 
         resendCodeViewModel.getResendCodeResponseLiveData().observe(this, response -> {
-            showDiaLog(response.getMessage());
+            showDiaLogSuccess(response.getMessage());
         });
         resendCodeViewModel.getErrorLiveData().observe(this, error -> {
             showDiaLog(error);
@@ -143,7 +143,7 @@ public class VerifyAccountActivity extends AppCompatActivity {
                 resendTextTV.setClickable(false);
                 resendTextTV.setFocusable(false);
                 resendLine.setBackgroundResource(R.drawable.line_disable);
-                resendTextTV.setTextColor(ContextCompat.getColor(VerifyAccountActivity.this, R.color.light_gray));
+                resendTextTV.setTextColor(ContextCompat.getColor(VerifyAccountActivity.this, R.color.resend));
             }
             @Override
             public void onFinish() {
@@ -217,7 +217,7 @@ public class VerifyAccountActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_error, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
-        errorMessageTV = dialogView.findViewById(R.id.error_message);
+        errorMessageTV = dialogView.findViewById(R.id.error_message1);
         errorMessageTV.setText(message);
         errorbutton = dialogView.findViewById(R.id.btn_back_error);
         if (dialog.getWindow() != null) {
@@ -228,5 +228,21 @@ public class VerifyAccountActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
+    private void showDiaLogSuccess(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(VerifyAccountActivity.this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_successfully, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        errorMessageTV = dialogView.findViewById(R.id.success_TV);
+        errorMessageTV.setText(message);
+        errorbutton = dialogView.findViewById(R.id.btn_back_success);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        errorbutton.setOnClickListener( v -> {
+            dialog.dismiss();
+        });
+        dialog.show();
+    }
 }

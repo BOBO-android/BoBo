@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -33,7 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button createAccountButton, errorbutton;
     private boolean isPasswordVisible = false;
     private SignUpViewModel signUpViewModel;
-
+    private LinearLayout back;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.checkbox);
         signInTV = findViewById(R.id.sign_in_text_view);
         createAccountButton = findViewById(R.id.create_account_button);
+        back = findViewById(R.id.back_container);
 
         // xu ly an hien pass
         passwordTextInputLayout.setEndIconOnClickListener( v -> {
@@ -101,11 +103,11 @@ public class SignUpActivity extends AppCompatActivity {
             editor.putString("userName", response.getData().getUserName());
             editor.apply();
 
-            showDiaLog(response.getMessage(),true);
+            showDiaLogSuccess(response.getMessage());
 
         });
         signUpViewModel.getErrorLiveData().observe(this, error -> {
-            showDiaLog(error,false);
+            showDiaLog(error);
         });
 
 
@@ -140,6 +142,13 @@ public class SignUpActivity extends AppCompatActivity {
 
          //xu ly sign In
         signInTV.setOnClickListener( v -> {
+            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        // xu ly back
+        back.setOnClickListener( v -> {
             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -262,17 +271,17 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 validationFunction.accept(s.toString().trim());
-                checkUpdateButton();
+
             }
         });
     }
-    private void showDiaLog(String message, boolean isSuccess){
+    private void showDiaLog(String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_error, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
-        errorMessageTV = dialogView.findViewById(R.id.error_message);
+        errorMessageTV = dialogView.findViewById(R.id.error_message1);
         errorMessageTV.setText(message);
         errorbutton = dialogView.findViewById(R.id.btn_back_error);
         if (dialog.getWindow() != null) {
@@ -280,15 +289,33 @@ public class SignUpActivity extends AppCompatActivity {
         }
         errorbutton.setOnClickListener( v -> {
             dialog.dismiss();
-            if (isSuccess) {
-                Intent intent = new Intent(SignUpActivity.this, VerifyAccountActivity.class);
-                intent.putExtra("email", emailTextInputEditText.getText().toString().trim());
-                startActivity(intent);
-                finish();
-            }
         });
         dialog.show();
     }
+
+    private void showDiaLogSuccess(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_successfully, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        errorMessageTV = dialogView.findViewById(R.id.success_TV);
+        errorMessageTV.setText(message);
+        errorbutton = dialogView.findViewById(R.id.btn_back_success);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        errorbutton.setOnClickListener( v -> {
+            dialog.dismiss();
+            Intent intent = new Intent(SignUpActivity.this, VerifyAccountActivity.class);
+            intent.putExtra("email", emailTextInputEditText.getText().toString().trim());
+            startActivity(intent);
+            startActivity(intent);
+            finish();
+        });
+        dialog.show();
+    }
+
     private void checkUpdateButton() {
         String fullName = fullNameTextInputEditText.getText().toString().trim();
         String email = emailTextInputEditText.getText().toString().trim();

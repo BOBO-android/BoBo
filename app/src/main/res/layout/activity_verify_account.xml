@@ -261,7 +261,7 @@
                 android:focusable="false"
                 android:gravity="top"
                 android:text="Resend"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/resend"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 

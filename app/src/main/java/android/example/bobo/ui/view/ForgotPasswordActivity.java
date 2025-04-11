@@ -88,7 +88,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         resendCodeViewModel = new ViewModelProvider(this).get(ResendCodeViewModel.class);
 
         resendCodeViewModel.getResendCodeResponseLiveData().observe(this, response -> {
-            showDiaLog(response.getMessage());
+            showDiaLogSuccess(response.getMessage());
         });
         resendCodeViewModel.getErrorLiveData().observe(this, error -> {
             showDiaLog(error);
@@ -146,7 +146,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 resendTextTV.setClickable(false);
                 resendTextTV.setFocusable(false);
                 resendLine.setBackgroundResource(R.drawable.line_disable);
-                resendTextTV.setTextColor(ContextCompat.getColor(ForgotPasswordActivity.this, R.color.light_gray));
+                resendTextTV.setTextColor(ContextCompat.getColor(ForgotPasswordActivity.this, R.color.resend));
             }
             @Override
             public void onFinish() {
@@ -220,9 +220,26 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_error, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
-        errorMessageTV = dialogView.findViewById(R.id.error_message);
+        errorMessageTV = dialogView.findViewById(R.id.error_message1);
         errorMessageTV.setText(message);
         errorbutton = dialogView.findViewById(R.id.btn_back_error);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        errorbutton.setOnClickListener( v -> {
+            dialog.dismiss();
+        });
+        dialog.show();
+    }
+    private void showDiaLogSuccess(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ForgotPasswordActivity.this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_successfully, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        errorMessageTV = dialogView.findViewById(R.id.success_TV);
+        errorMessageTV.setText(message);
+        errorbutton = dialogView.findViewById(R.id.btn_back_success);
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
