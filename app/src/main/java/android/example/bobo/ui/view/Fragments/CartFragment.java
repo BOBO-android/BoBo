@@ -1,65 +1,212 @@
 package android.example.bobo.ui.view.Fragments;
 
+import android.content.Intent;
+import android.example.bobo.R;
+import android.example.bobo.data.model.CartItem;
+import android.example.bobo.data.model.PlaceOrderItem;
+import android.example.bobo.data.repository.CartRepository;
+import android.example.bobo.ui.adapters.CartAdapter;
+//import android.example.bobo.ui.view.LoginActivity;
+import android.example.bobo.ui.view.PlaceOrderActivity;
+import android.example.bobo.utils.TokenManager;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.example.bobo.R;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CartFragment extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import java.util.ArrayList;
+import java.util.List;
 
-    public CartFragment() {
-        // Required empty public constructor
+public class CartFragment extends Fragment implements CartAdapter.OnQuantityChangeListener {
+    private RecyclerView recyclerView;
+    private CartAdapter cartAdapter;
+    private List<CartItem> cartItems = new ArrayList<>();
+    private TextView totalPrice;
+    private Double totalP = 0.0;
+    private Button btnProceed;
+    private TextView tvEmpty;
+    private ProgressBar progressBar;
+
+    // Cart Empty View
+    private View emptyCartView;
+    private Button btnExplore;
+
+    // Main Cart View
+    private View cartContentView;
+
+    // Repository
+    private CartRepository cartRepository;
+    private TokenManager tokenManager;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cartRepository = new CartRepository();
+        tokenManager = new TokenManager(getContext());
+
+        cartRepository.setAuthToken(tokenManager.getToken());
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        // Ánh xạ view chính
+        recyclerView = view.findViewById(R.id.recycler_cart);
+        totalPrice = view.findViewById(R.id.total_price);
+        btnProceed = view.findViewById(R.id.btn_proceed);
+        progressBar = view.findViewById(R.id.progress_bar);
+        cartContentView = view.findViewById(R.id.cart_content_layout);
+
+        // Inflate và thiết lập view giỏ hàng trống
+        emptyCartView = inflater.inflate(R.layout.layout_empty_cart, container, false);
+        ((ViewGroup) view).addView(emptyCartView);
+        emptyCartView.setVisibility(View.GONE);
+
+        btnExplore = emptyCartView.findViewById(R.id.btn_explore);
+        btnExplore.setOnClickListener(v -> {
+            // Chuyển đến trang Explore/Home
+            navigateToExplore();
+        });
+
+        // Thiết lập RecyclerView
+        cartAdapter = new CartAdapter(cartItems, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(cartAdapter);
+
+        // Xử lý sự kiện khi nhấn nút thanh toán
+        btnProceed.setOnClickListener(v -> {
+            if (!cartItems.isEmpty()) {
+                proceedToCheckout();
+            } else {
+                Toast.makeText(getContext(), "Giỏ hàng trống, không thể thanh toán", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Quan sát dữ liệu từ repository
+        observeCartData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Làm mới giỏ hàng mỗi khi quay lại fragment
+        refreshCart();
+    }
+
+    // Phương thức làm mới giỏ hàng
+    private void refreshCart() {
+        cartRepository.refreshCart();
+    }
+
+    private void observeCartData() {
+        // Quan sát danh sách giỏ hàng
+        cartRepository.getCartItems().observe(getViewLifecycleOwner(), items -> {
+            cartItems.clear();
+            if (items != null) {
+                cartItems.addAll(items);
+                cartAdapter.notifyDataSetChanged();
+            }
+        });
+
+        // Quan sát tổng giá
+        cartRepository.getTotalPrice().observe(getViewLifecycleOwner(), price -> {
+            totalP = price;
+            totalPrice.setText("$" + String.format("%.2f", price));
+        });
+
+        // Quan sát trạng thái loading
+        cartRepository.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
+
+        // Quan sát trạng thái giỏ hàng trống
+        cartRepository.isEmpty().observe(getViewLifecycleOwner(), isEmpty -> {
+            if (isEmpty) {
+                showEmptyCartView();
+            } else {
+                showCartContentView();
+            }
+        });
+    }
+
+    private void showEmptyCartView() {
+        if (emptyCartView != null && cartContentView != null) {
+            emptyCartView.setVisibility(View.VISIBLE);
+            cartContentView.setVisibility(View.GONE);
+        }
+    }
+
+    private void showCartContentView() {
+        if (emptyCartView != null && cartContentView != null) {
+            emptyCartView.setVisibility(View.GONE);
+            cartContentView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void navigateToExplore() {
+        if (getActivity() != null) {
+            BottomNavigationView bottomNav = getActivity().findViewById(R.id.bottom_navigation);
+            bottomNav.setSelectedItemId(R.id.nav_explore);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+    public void onQuantityChanged(String foodId, int newQuantity) {
+        if (newQuantity == 0) {
+            cartRepository.removeItem(foodId);
+        } else {
+            cartRepository.updateQuantity(foodId, newQuantity);
+        }
+    }
+
+    private void proceedToCheckout() {
+        cartRepository.proceedToCheckout(new CartRepository.OnCheckoutListener() {
+            @Override
+            public void onSuccess(String message) {
+                // Tạo danh sách PlaceOrderItem từ CartItem
+                ArrayList<PlaceOrderItem> orderItems = new ArrayList<>();
+                for (CartItem cartItem : cartItems) {
+                    PlaceOrderItem orderItem = new PlaceOrderItem(
+                            cartItem.getId(),
+                            cartItem.getName(),
+                            cartItem.getPrice(),
+                            cartItem.getQuantity(),
+                            cartItem.getImageUrl()
+                    );
+                    orderItems.add(orderItem);
+                }
+
+                Intent intent = new Intent(getActivity(), PlaceOrderActivity.class);
+                intent.putParcelableArrayListExtra("order_items", orderItems);
+                intent.putExtra("total_price", totalP);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

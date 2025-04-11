@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <FrameLayout
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp">
+
+        <View
+            android:id="@+id/statusLineTop"
+            android:layout_width="2dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@color/gray_light" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statusCircle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/green">
+
+            <ImageView
+                android:id="@+id/imgStatusIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check" />
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/statusLineBottom"
+            android:layout_width="2dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@color/gray_light" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvStatusTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preparing your order"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvStatusDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We are preparing your food with magic and care"
+            android:textColor="@color/gray_dark"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvStatusTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time Req. 20mins"
+            android:textColor="@color/gray_dark"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+</LinearLayout>

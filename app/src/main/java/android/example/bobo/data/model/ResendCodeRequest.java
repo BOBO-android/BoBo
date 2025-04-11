@@ -15,4 +15,3 @@ public class ResendCodeRequest {
         this.email = email;
     }
 }
-
