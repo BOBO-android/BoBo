@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/explorer_image_food"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@android:drawable/ic_menu_gallery" />
+
+        <TextView
+            android:id="@+id/explorer_text_food_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/explorer_button_add"
+            app:layout_constraintStart_toEndOf="@id/explorer_image_food"
+            app:layout_constraintTop_toTopOf="@id/explorer_image_food"
+            tools:text="Pepperoni Cheese Pizza" />
+
+        <LinearLayout
+            android:id="@+id/explorer_layout_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/explorer_text_food_name"
+            app:layout_constraintTop_toBottomOf="@id/explorer_text_food_name">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@android:drawable/btn_star_big_on"
+                android:tint="#FFC107" />
+
+            <TextView
+                android:id="@+id/explorer_text_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                tools:text="4.9" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/explorer_text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/explorer_image_food"
+            app:layout_constraintStart_toStartOf="@id/explorer_text_food_name"
+            tools:text="$12.99" />
+
+        <TextView
+            android:id="@+id/explorer_text_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="#E8F5E9"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:textColor="#2E7D32"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/explorer_text_price"
+            app:layout_constraintStart_toEndOf="@id/explorer_text_price"
+            app:layout_constraintTop_toTopOf="@id/explorer_text_price"
+            tools:text="10% OFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/explorer_button_add"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/_1_more"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            app:backgroundTint="#4CAF50"
+            app:cornerRadius="16dp"
+            app:icon="@android:drawable/ic_input_add"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

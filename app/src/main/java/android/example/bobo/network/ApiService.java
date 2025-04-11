@@ -6,6 +6,7 @@ import android.example.bobo.data.model.CheckValidCodeRequest;
 import android.example.bobo.data.model.CheckValidCodeResponse;
 import android.example.bobo.data.model.Dish;
 import android.example.bobo.data.model.FoodResponse;
+import android.example.bobo.data.model.FoodSearchResponse;
 import android.example.bobo.data.model.RegisterStoreRequest;
 import android.example.bobo.data.model.RegisterStoreResponse;
 import android.example.bobo.data.model.ResendCodeRequest;
@@ -21,6 +22,8 @@ import android.example.bobo.data.model.ResendCodeRequest;
 import android.example.bobo.data.model.ResendCodeResponse;
 import android.example.bobo.data.model.ResetPasswordRequest;
 import android.example.bobo.data.model.ResetPasswordResponse;
+import android.example.bobo.data.model.SearchFoodItemModel;
+import android.example.bobo.data.model.UserOrder;
 import android.example.bobo.data.model.VerifyRequest;
 import com.google.gson.annotations.SerializedName;
 
@@ -78,7 +81,18 @@ public interface ApiService {
             @Query("current") int currentPage,
             @Query("pageSize") int pageSize
     );
+    @GET("orders")
+    Call<ApiResponse<List<UserOrder>>> getUserOrders(
+            @Header("Authorization") String token,
+            @Query("customerId") String customerId
+    );
 
+    @GET("foods/{slug}")
+    Call<ApiResponse<SearchFoodItemModel>> getFoodBySlug(@Path("slug") String slug);
+
+    @GET("foods")
+    Call<ApiResponse<FoodSearchResponse>> searchFoods(@Query("query") String query);
+  
     @POST("/api/v1/stores/register")
     Call<RegisterStoreResponse> registerStore(
             @Header("Authorization") String token,
@@ -94,5 +108,4 @@ public interface ApiService {
 
     @POST("store/resend-code")
     Call<Void> resendCode(@Body ResendCodeRequest request);
-
 }

@@ -13,7 +13,7 @@
 
         <!-- Food item Image -->
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/foodImage"
+            android:id="@+id/iv_food"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
@@ -26,7 +26,7 @@
             app:strokeWidth="1dp" />
 
         <TextView
-            android:id="@+id/foodQuantity"
+            android:id="@+id/tv_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="x1"

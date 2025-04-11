@@ -41,12 +41,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         // Hiển thị tên món
         holder.itemName.setText(item.getName());
 
-
         holder.itemPrice.setText("$" + String.format("%.2f", item.getPrice()));
 
         holder.itemQuantity.setText(String.valueOf(item.getQuantity()));
-
-
 
         if (!TextUtils.isEmpty(item.getImageUrl())) {
             Glide.with(holder.itemImage.getContext())
@@ -69,11 +66,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.btnDecrease.setImageResource(R.drawable.ic_trash);
         }
 
-        // Trong onBindViewHolder của CartAdapter
         holder.btnIncrease.setOnClickListener(v -> {
             int newQuantity = item.getQuantity() + 1;
             if (listener != null) {
-                // Đảm bảo sử dụng đúng foodId
                 String foodId = item.getFoodId();
                 Log.d("CartAdapter", "Increasing quantity for foodId: " + foodId + ", New quantity: " + newQuantity);
                 listener.onQuantityChanged(foodId, newQuantity);
