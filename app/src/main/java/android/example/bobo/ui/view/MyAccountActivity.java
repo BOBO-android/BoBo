@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.example.bobo.R;
-import android.example.bobo.ui.viewmodel.MenuSideDrawerViewModel;
+import android.example.bobo.ui.viewmodel.ImageViewModel; // Thêm import
 import android.example.bobo.ui.viewmodel.MyAccountViewModel;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.function.Consumer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,11 +43,13 @@ public class MyAccountActivity extends AppCompatActivity {
     private Button errorbutton;
     private CircleImageView userAvatar;
     private MyAccountViewModel myAccountViewModel;
+    private ImageViewModel imageViewModel; // Thêm ImageViewModel
     private TextInputLayout nameTextInputLayout, numberPhoneTextInputLayout, addressTextInputLayout;
     private TextInputEditText nameTextInputEditText, numberPhoneTextInputEditText, addressTextInputEditText;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private Uri selectedImageUri;
+    private String uploadedImageUrl; // Lưu trữ URL của ảnh sau khi upload
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +66,11 @@ public class MyAccountActivity extends AppCompatActivity {
         addressTextInputLayout = findViewById(R.id.address_text_input_layout);
         addressTextInputEditText = findViewById(R.id.address_text_input_edit_text);
 
+        // Khởi tạo MyAccountViewModel
+        myAccountViewModel = new ViewModelProvider(this).get(MyAccountViewModel.class);
 
-        myAccountViewModel= new ViewModelProvider(this).get(MyAccountViewModel.class);
+        // Khởi tạo ImageViewModel
+        imageViewModel = new ViewModelProvider(this).get(ImageViewModel.class);
 
         myAccountViewModel.getUserInfo().observe(this, userInfo -> {
             if (userInfo != null) {
@@ -79,6 +88,7 @@ public class MyAccountActivity extends AppCompatActivity {
                 Toast.makeText(this, "User info is null", Toast.LENGTH_SHORT).show();
             }
         });
+
         myAccountViewModel.getUserInfoErrorMessage().observe(this, error -> {
             Toast.makeText(this, "Error: " + error, Toast.LENGTH_LONG).show();
         });
@@ -92,6 +102,35 @@ public class MyAccountActivity extends AppCompatActivity {
             showDiaLog(error, false);
         });
 
+        // Quan sát kết quả từ ImageViewModel
+        imageViewModel.getUploadResult().observe(this, uploadResponse -> {
+            if (uploadResponse != null) {
+                String imageUrl = uploadResponse.getData().getSecureUrl(); // Lấy secureUrl từ UploadResponse
+                if (imageUrl != null) {
+                    uploadedImageUrl = imageUrl; // Lưu trữ URL của ảnh để sử dụng sau này
+                    Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                    Glide.with(this)
+                            .load(imageUrl)
+                            .placeholder(R.drawable.test_image)
+                            .error(R.drawable.test_image)
+                            .into(userAvatar);
+                } else {
+                    Toast.makeText(this, "Failed to get image URL from server", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        imageViewModel.getErrorMessage().observe(this, error -> {
+            Toast.makeText(this, "Image upload failed: " + error, Toast.LENGTH_LONG).show();
+        });
+
+        imageViewModel.getIsLoading().observe(this, isLoading -> {
+            // Có thể hiển thị ProgressBar nếu cần
+            if (isLoading) {
+                Toast.makeText(this, "Uploading image...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // token
         SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String token = preferences.getString("access_token", "");
@@ -100,8 +139,7 @@ public class MyAccountActivity extends AppCompatActivity {
         // validate
         addValidationTextWatcher(numberPhoneTextInputEditText, this::validatePhoneNumber);
         addValidationTextWatcher(nameTextInputEditText, this::validateFullName);
-        addValidationTextWatcher(addressTextInputEditText, this ::validateAddress);
-
+        addValidationTextWatcher(addressTextInputEditText, this::validateAddress);
 
         cancel.setOnClickListener(v -> {
             Intent intent = new Intent(MyAccountActivity.this, MenuSideDrawerActivity.class);
@@ -109,18 +147,17 @@ public class MyAccountActivity extends AppCompatActivity {
             finish();
         });
 
-        save.setOnClickListener( v -> {
+        save.setOnClickListener(v -> {
             String fullName = nameTextInputEditText.getText().toString().trim();
             String phoneNumber = numberPhoneTextInputEditText.getText().toString().trim();
             String address = addressTextInputEditText.getText().toString().trim();
-            String imageUri = selectedImageUri != null ? selectedImageUri.toString() : null;
 
             if (validateFullName(fullName) && validatePhoneNumber(phoneNumber) && validateAddress(address)) {
-                myAccountViewModel.updateAccount(token, fullName, imageUri, phoneNumber, address);
-
+                SharedPreferences preferencesSave = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                String tokenSave = preferencesSave.getString("access_token", ""); // Khai báo token trong scope
+                // Sử dụng uploadedImageUrl đã được lưu trữ sau khi upload ảnh
+                myAccountViewModel.updateAccount(tokenSave, fullName, uploadedImageUrl, phoneNumber, address);
             }
-
-
         });
 
         userAvatar.setOnClickListener(v -> {
@@ -213,6 +250,7 @@ public class MyAccountActivity extends AppCompatActivity {
                 STORAGE_PERMISSION_CODE
         );
     }
+
     // xu ly quyen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -241,27 +279,66 @@ public class MyAccountActivity extends AppCompatActivity {
             selectedImageUri = data.getData();
             Uri imageUri = data.getData();
             userAvatar.setImageURI(imageUri);
+            // Chuyển URI thành File và upload ảnh
+            File imageFile = getFileFromUri(selectedImageUri);
+            if (imageFile != null) {
+                SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                String token = preferences.getString("access_token", "");
+                imageViewModel.uploadImage(imageFile, token);
+            } else {
+                Toast.makeText(this, "Failed to process the selected image", Toast.LENGTH_SHORT).show();
+            }
         }
     }
-    private void showDiaLog(String message, boolean isSuccess){
+
+    private void showDiaLog(String message, boolean isSuccess) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MyAccountActivity.this);
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_error, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
-
+        errorMessageTV = dialogView.findViewById(R.id.error_message1);
         errorbutton = dialogView.findViewById(R.id.btn_back_error);
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        if (errorMessageTV != null) {
+            errorMessageTV.setText(message);
+        } else {
+            Toast.makeText(this, "Error: Cannot find error_message1 TextView in dialog", Toast.LENGTH_LONG).show();
         }
-        errorbutton.setOnClickListener( v -> {
-            dialog.dismiss();
-            if (isSuccess) {
-                Intent intent = new Intent(MyAccountActivity.this, MenuSideDrawerActivity.class);
-                startActivity(intent);
-                finish();
+        if (errorbutton != null) {
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             }
-        });
+            errorbutton.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (isSuccess) {
+                    Intent intent = new Intent(MyAccountActivity.this, MenuSideDrawerActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Error: Cannot find btn_back_error Button in dialog", Toast.LENGTH_LONG).show();
+        }
         dialog.show();
+    }
+
+    // Chuyển URI thành File
+    private File getFileFromUri(Uri uri) {
+        try {
+            String fileName = "temp_image.jpg";
+            File file = new File(getCacheDir(), fileName);
+            try (InputStream inputStream = getContentResolver().openInputStream(uri);
+                 FileOutputStream outputStream = new FileOutputStream(file)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+            return file;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
