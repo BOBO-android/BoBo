@@ -2,8 +2,6 @@ package android.example.bobo.ui.viewmodel;
 
 import android.example.bobo.data.model.Dish;
 import android.example.bobo.data.repository.DishRepository;
-import android.example.bobo.network.ApiService;
-import android.example.bobo.network.RetrofitClient;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,10 +9,11 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 public class MenuViewModel extends ViewModel {
-    private final DishRepository dishRepository;
-    private final LiveData<List<Dish>> dishes;
-    private final LiveData<Boolean> isLoading;
-    private final LiveData<String> errorMessage;
+
+    private DishRepository dishRepository;
+    private LiveData<List<Dish>> dishes;
+    private LiveData<Boolean> isLoading;
+    private LiveData<String> errorMessage;
 
     public MenuViewModel() {
         dishRepository = new DishRepository();
@@ -33,6 +32,10 @@ public class MenuViewModel extends ViewModel {
 
     public LiveData<String> getErrorMessage() {
         return errorMessage;
+    }
+
+    public void setUseFakeData(boolean useFakeData) {
+        dishRepository.setUseFakeData(useFakeData);
     }
 
     public void fetchDishes(String storeId, int currentPage, int pageSize, String token) {

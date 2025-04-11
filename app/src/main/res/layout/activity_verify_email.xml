@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="24dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp">
+
+        <TextView
+            android:id="@+id/tx_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_arrow_left"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="@string/back_text"
+            android:textColor="@color/color_typography_heading"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/img_Logo"
+            android:layout_width="309dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="35dp"
+            android:baselineAligned="false"
+            android:contentDescription="@string/app_logo"
+            app:srcCompat="@drawable/ic_logo" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="242dp"
+        android:layout_height="83dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/verry_otp"
+        android:textColor="@color/color_typography_heading"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/title_email"
+        android:textColor="@color/color_typography_pagarap"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/tv_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_TextOtp1"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_input_text_background"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_TextOtp2"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/rounded_input_text_background" />
+
+        <EditText
+            android:id="@+id/et_TextOtp3"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rounded_input_text_background" />
+
+        <EditText
+            android:id="@+id/et_TextOtp4"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/rounded_input_text_background" />
+
+        <EditText
+            android:id="@+id/et_TextOtp5"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/rounded_input_text_background" />
+
+        <EditText
+            android:id="@+id/et_TextOtp6"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/rounded_input_text_background" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+
+        <TextView
+            android:id="@+id/textViewResendCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/not_code"
+            android:textColor="@color/color_typography_pagarap"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_ViewResend"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/resend"
+                android:textColor="@color/color_typography_heading"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="55dp"
+                android:layout_height="2dp"
+                android:background="@color/view" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="440dp"
+        android:weightSum="3">
+        <View
+            android:id="@+id/step1"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:background="@color/colorProcces"
+            android:layout_marginEnd="4dp" />
+        <View
+            android:id="@+id/step2"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:background="@color/colorProcces"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp" />
+        <View
+            android:id="@+id/step3"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Continue_Very"
+        android:layout_width="365dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/btn_complete"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>
