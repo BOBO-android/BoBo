@@ -59,7 +59,7 @@ public class EmailVerificationViewModel extends ViewModel {
     }
 
     public void resendVerificationCode(String email) {
-        apiService.resendCode(new ResendCodeRequest(email)).enqueue(new Callback<Void>() {
+        apiService.resendCode1(new ResendCodeRequest(email)).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {

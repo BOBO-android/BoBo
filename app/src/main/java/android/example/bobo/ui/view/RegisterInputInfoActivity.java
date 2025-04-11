@@ -143,10 +143,10 @@ public class RegisterInputInfoActivity extends AppCompatActivity {
 
         viewModel.getRegisterSuccess().observe(this, isSuccess -> {
             if (Boolean.TRUE.equals(isSuccess)) {
-                Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, EmailVerificationActivity.class));
             } else {
-                Toast.makeText(this, "Đăng ký thất bại. Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Registration failed. Please try again!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -166,7 +166,7 @@ public class RegisterInputInfoActivity extends AppCompatActivity {
     private void openImagePicker(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Chọn ảnh"), requestCode);
+        startActivityForResult(Intent.createChooser(intent, "Select photo"), requestCode);
     }
 
     @Override
@@ -184,20 +184,20 @@ public class RegisterInputInfoActivity extends AppCompatActivity {
                 uploadImageFromUri(licenseUri, "license");
             }
         } else {
-            Toast.makeText(this, "Không có ảnh được chọn", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No photos selected", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void uploadImageFromUri(Uri imageUri, String imageType) {
         String path = getPathFromUri(this, imageUri);
         if (path == null) {
-            Toast.makeText(this, "Không thể lấy đường dẫn ảnh", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unable to get image path", Toast.LENGTH_SHORT).show();
             return;
         }
 
         File file = new File(path);
         if (!file.exists()) {
-            Toast.makeText(this, "Không tìm thấy file ảnh", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Image file not found", Toast.LENGTH_SHORT).show();
             return;
         }
 
