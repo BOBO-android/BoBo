@@ -6,12 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.Fragments.ExploreFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/explorer_search_layout"
+        layout="@layout/layout_explorer_search"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Explore Screen"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/explorer_text_category_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Popular Categories"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/explorer_search_layout" />
+
+    <TextView
+        android:id="@+id/explorer_text_search_results_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Search Results"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/explorer_search_layout" />
+
+    <FrameLayout
+        android:id="@+id/explorer_frame_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/explorer_text_category_header">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/explorer_recycler_categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Category list"
+            android:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/explorer_recycler_search_results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/explorer_text_no_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="No results found"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/explorer_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

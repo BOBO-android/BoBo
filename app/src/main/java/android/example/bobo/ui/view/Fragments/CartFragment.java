@@ -103,7 +103,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Quan sát dữ liệu từ repository
         observeCartData();
     }
 
@@ -175,6 +174,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
     public void onQuantityChanged(String foodId, int newQuantity) {
         if (newQuantity == 0) {
             cartRepository.removeItem(foodId);
+            refreshCart();
         } else {
             cartRepository.updateQuantity(foodId, newQuantity);
         }

@@ -6,6 +6,7 @@ import android.example.bobo.data.model.CheckValidCodeRequest;
 import android.example.bobo.data.model.CheckValidCodeResponse;
 import android.example.bobo.data.model.Dish;
 import android.example.bobo.data.model.FoodResponse;
+import android.example.bobo.data.model.FoodSearchResponse;
 import android.example.bobo.data.model.ForgotPasswordRequest;
 import android.example.bobo.data.model.ForgotPasswordResponse;
 import android.example.bobo.data.model.LoginRequest;
@@ -16,6 +17,7 @@ import android.example.bobo.data.model.ResendCodeRequest;
 import android.example.bobo.data.model.ResendCodeResponse;
 import android.example.bobo.data.model.ResetPasswordRequest;
 import android.example.bobo.data.model.ResetPasswordResponse;
+import android.example.bobo.data.model.SearchFoodItemModel;
 import android.example.bobo.data.model.UserOrder;
 import android.example.bobo.data.model.VerifyRequest;
 import com.google.gson.annotations.SerializedName;
@@ -76,4 +78,10 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Query("customerId") String customerId
     );
+
+    @GET("foods/{slug}")
+    Call<ApiResponse<SearchFoodItemModel>> getFoodBySlug(@Path("slug") String slug);
+
+    @GET("foods")
+    Call<ApiResponse<FoodSearchResponse>> searchFoods(@Query("query") String query);
 }
