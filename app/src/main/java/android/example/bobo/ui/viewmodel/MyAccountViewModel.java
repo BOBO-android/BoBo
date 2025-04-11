@@ -23,7 +23,6 @@ public class MyAccountViewModel extends ViewModel {
         userInformationRepository = new UserInformationRepository();
     }
 
-
     public LiveData<String> getUpdateResult() {
         return updateResult;
     }
@@ -32,7 +31,6 @@ public class MyAccountViewModel extends ViewModel {
         return updateErrorMessage;
     }
 
-
     public LiveData<UserInformationResponse> getUserInfo() {
         return userInfo;
     }
@@ -40,7 +38,6 @@ public class MyAccountViewModel extends ViewModel {
     public LiveData<String> getUserInfoErrorMessage() {
         return userInfoErrorMessage;
     }
-
 
     public void updateAccount(String token, String fullName, String uriImage, String phoneNumber, String address) {
         UpdateAccountRequest request = new UpdateAccountRequest(fullName, uriImage, phoneNumber, address);

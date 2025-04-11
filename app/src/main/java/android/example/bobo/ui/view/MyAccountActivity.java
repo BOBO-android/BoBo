@@ -72,6 +72,7 @@ public class MyAccountActivity extends AppCompatActivity {
         // Khởi tạo ImageViewModel
         imageViewModel = new ViewModelProvider(this).get(ImageViewModel.class);
 
+
         myAccountViewModel.getUserInfo().observe(this, userInfo -> {
             if (userInfo != null) {
                 nameTextInputEditText.setText(userInfo.getFullName());
