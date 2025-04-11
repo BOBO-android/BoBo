@@ -30,4 +30,5 @@
     <color name="light_grayish_green">#E8EBE6</color>
     <color name="light_gray">#F4F7F2</color>
     <color name="dark_gray">#666666</color>
+    <color name="pale_gray_green">#F9FAF8</color>
 </resources>

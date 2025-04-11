@@ -1,6 +1,5 @@
 package android.example.bobo.ui.view;
 
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.example.bobo.R;
@@ -77,7 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("username", response.getUser().getUsername());
                 editor.apply();
 
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MenuSideDrawerActivity.class);
+
                 startActivity(intent);
                 finish();
         });

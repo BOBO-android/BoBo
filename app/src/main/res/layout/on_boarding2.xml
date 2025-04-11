@@ -7,72 +7,70 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/ivLogo2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-16dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_logo"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Logo -->
+    <!-- Main Image Container -->
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo2"
+        app:layout_constraintHeight_percent="0.35">
+
         <ImageView
-            android:id="@+id/ivLogo2"
+            android:id="@+id/obImageEnd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
-            android:src="@drawable/ic_logo" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/vector_logo_onboarding" />
 
-        <!--Main Image-->
-        <FrameLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="358dp">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/image_onboarding4" />
+    </FrameLayout>
 
-            <ImageView
-                android:id="@+id/obImageEnd"
-                android:layout_width="412dp"
-                android:layout_height="358dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/vector_logo_onboarding" />
+    <TextView
+        android:id="@+id/obTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins_extrabold"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="Join to get the \n delicious quizines!"
+        android:textColor="@color/title_onboarding"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
-            <ImageView
-                android:layout_width="405dp"
-                android:layout_height="358dp"
-                android:layout_gravity="center"
-                android:src="@drawable/image_onboarding4" />
-        </FrameLayout>
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/btn_next_background"
+        android:fontFamily="@font/poppins_extrabold"
+        android:stateListAnimator="@null"
+        android:text="Log in"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-
-        <TextView
-            android:id="@+id/obTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="170dp"
-            android:fontFamily="@font/poppins_extrabold"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textColor="@color/title_onboarding"
-            android:textSize="33dp"
-            android:text="Join to get the \n delicious quizines!"
-            android:maxLines="2"
-            />
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/btn_next_background"
-                android:fontFamily="@font/poppins_extrabold"
-                android:text="Log in"
-                android:textColor="@color/white"
-                android:stateListAnimator="@null"
-                />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
