@@ -7,6 +7,7 @@ import android.example.bobo.ui.viewmodel.MenuSideDrawerViewModel;
 import android.example.bobo.ui.viewmodel.MyAccountViewModel;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,8 @@ import com.bumptech.glide.Glide;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuSideDrawerActivity extends AppCompatActivity {
-    private Button myAccountButton,settingButton;
+    private Button myAccountButton, settingButton, registerStoreButton;
+    private ImageButton closeButton;
     private MenuSideDrawerViewModel menuSideDrawerViewModel;
     private CircleImageView userAvatar;
     private TextView userName, userEmail;
@@ -30,9 +32,11 @@ public class MenuSideDrawerActivity extends AppCompatActivity {
 
         myAccountButton = findViewById(R.id.btn_my_account);
         settingButton = findViewById(R.id.btn_setting);
+        registerStoreButton = findViewById(R.id.btn_register_store);
         userAvatar = findViewById(R.id.user_avatar);
         userName = findViewById(R.id.user_name);
         userEmail = findViewById(R.id.user_email);
+        closeButton = findViewById(R.id.close_button);
 
         //khoi tao
         menuSideDrawerViewModel = new ViewModelProvider(this).get(MenuSideDrawerViewModel.class);
@@ -60,7 +64,6 @@ public class MenuSideDrawerActivity extends AppCompatActivity {
                     Toast.makeText(this, "Error: " + error, Toast.LENGTH_LONG).show();
         });
 
-
         SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String token = preferences.getString("access_token", "");
         menuSideDrawerViewModel.getUserInformation(token);
@@ -70,6 +73,20 @@ public class MenuSideDrawerActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Token is empty. Please log in again.", Toast.LENGTH_LONG).show();
         }
+
+        // Thêm sự kiện cho nút đóng
+        closeButton.setOnClickListener(v -> {
+            // Đóng activity hiện tại và quay lại activity trước đó (chứa HomeFragment)
+            finish();
+        });
+
+        // Thêm sự kiện cho nút Register For Store
+        registerStoreButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuSideDrawerActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         // chuyen trang
         myAccountButton.setOnClickListener( v -> {
             Intent intent = new Intent(MenuSideDrawerActivity.this, MyAccountActivity.class);

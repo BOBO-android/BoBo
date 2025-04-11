@@ -9,15 +9,20 @@ import android.example.bobo.databinding.FragmentHomeBinding;
 import android.example.bobo.ui.adapters.PromotionAdapter;
 import android.example.bobo.ui.adapters.UserFoodAdapter;
 import android.example.bobo.ui.view.FoodDetailActivity;
+import android.example.bobo.ui.view.MenuSideDrawerActivity;
+import android.example.bobo.ui.view.SearchResultsActivity;
 import android.example.bobo.ui.viewmodel.HomeViewModel;
 import android.example.bobo.utils.TokenManager;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,6 +83,9 @@ public class HomeFragment extends Fragment {
         // Setup UI components
         setupUI();
 
+        // Setup search functionality
+        setupSearch();
+
         // Observe data changes
         observeData();
 
@@ -98,6 +106,18 @@ public class HomeFragment extends Fragment {
         setupCategoryTabs();
         setupFoodRecyclerView();
         setupPromotionBanners();
+
+        binding.ivProfile.setOnClickListener(v -> {
+            navigateToMenuSideDrawer();
+        });
+    }
+
+    /**
+     * Navigation vers MenuSideDrawerActivity
+     */
+    private void navigateToMenuSideDrawer() {
+        Intent intent = new Intent(getActivity(), MenuSideDrawerActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -413,6 +433,31 @@ public class HomeFragment extends Fragment {
                 page.setAlpha(0f);
             }
         }
+    }
+
+    /**
+     * Sets up search functionality
+     */
+    private void setupSearch() {
+        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER &&
+                                event.getAction() == KeyEvent.ACTION_DOWN)) {
+
+                    String query = binding.etSearch.getText().toString().trim();
+                    if (!query.isEmpty()) {
+                        // Launch search results activity
+                        Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+                        intent.putExtra("SEARCH_QUERY", query);
+                        startActivity(intent);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     /**

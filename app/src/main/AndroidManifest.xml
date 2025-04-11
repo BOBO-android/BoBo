@@ -4,10 +4,16 @@
     <!-- Required for making network requests -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" android:minSdkVersion="33" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        android:minSdkVersion="33" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" /> <!-- Thêm quyền truy cập trạng thái mạng -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +27,9 @@
         android:theme="@style/Theme.BoBo"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.view.SearchResultsActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.view.FoodDetailActivity"
             android:exported="false" />
@@ -38,6 +47,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,48 +57,43 @@
         <activity
             android:name=".ui.view.Onboarding2"
             android:exported="false" />
-
         <activity
             android:name=".ui.view.HomeActivity"
-            android:exported = "false"
-            android:theme="@style/Theme.BoBo.Material"/>
-
+            android:exported="false"
+            android:theme="@style/Theme.BoBo.Material" />
         <activity android:name=".ui.view.EmailVerificationActivity" />
-
-        <activity android:name=".ui.view.StoreReviewActivity"/>
-
-        <activity android:name=".ui.view.RegisterInputInfoActivity"
-            android:exported="false"/>
-        <activity android:name=".ui.view.RegisterCheckActivity"
-            android:exported="false"/>
-        <activity android:name=".ui.view.RegisterActivity"
-            android:exported="false">
-        </activity>
+        <activity android:name=".ui.view.StoreReviewActivity" />
+        <activity
+            android:name=".ui.view.RegisterInputInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.RegisterCheckActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.RegisterActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".ui.view.LoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.view.ForgotPasswordActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.view.SignUpActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.view.CreateNewPasswordActivity"
+            android:exported="false"></activity>
+        <activity
+            android:name=".ui.view.VerifyAccountActivity"
             android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".ui.view.VerifyAccountActivity"
-            android:exported="false">
-        <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-        <activity android:name=".ui.view.FinishCreateAccountActivity"
-            android:exported="false">
-        </activity>
+        <activity
+            android:name=".ui.view.FinishCreateAccountActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".ui.view.PlaceOrderActivity"
             android:exported="false" />
@@ -107,14 +112,15 @@
         <activity
             android:name=".ui.view.OrderPlacedActivity"
             android:exported="false" />
-        <activity android:name=".ui.view.MenuSideDrawerActivity"
-            android:exported="false">
-        </activity>
-        <activity android:name=".ui.view.MyAccountActivity"
-            android:exported="false">
-        </activity>
-        <activity android:name=".ui.view.SettingActivity"
-            android:exported="false">
-        </activity>
+        <activity
+            android:name=".ui.view.MenuSideDrawerActivity"
+            android:exported="false"></activity>
+        <activity
+            android:name=".ui.view.MyAccountActivity"
+            android:exported="false"></activity>
+        <activity
+            android:name=".ui.view.SettingActivity"
+            android:exported="false"></activity>
     </application>
+
 </manifest>

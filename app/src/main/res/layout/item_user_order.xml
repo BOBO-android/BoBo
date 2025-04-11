@@ -12,14 +12,25 @@
         android:layout_height="192dp"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/ivFoodImage"
+        <!-- Thay thế ImageView bằng CardView bọc ImageView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFoodImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="centerCrop"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="4dp"
+            app:strokeColor="#CCCCCC"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivFoodImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tvOrderStatus"
@@ -29,7 +40,7 @@
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/ivFoodImage"
+            app:layout_constraintStart_toEndOf="@+id/cardFoodImage"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Out for delivery" />
 
@@ -41,7 +52,7 @@
             android:layout_marginTop="4dp"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/ivFoodImage"
+            app:layout_constraintStart_toEndOf="@+id/cardFoodImage"
             app:layout_constraintTop_toBottomOf="@+id/tvOrderStatus"
             tools:text="Est. delivery: 30mins" />
 
@@ -54,7 +65,7 @@
             android:text="Order summary"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/ivFoodImage"
+            app:layout_constraintStart_toEndOf="@+id/cardFoodImage"
             app:layout_constraintTop_toBottomOf="@+id/tvEstDeliveryTime" />
 
         <TextView
@@ -78,7 +89,7 @@
             android:text="Total price paid"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/ivFoodImage"
+            app:layout_constraintStart_toEndOf="@+id/cardFoodImage"
             app:layout_constraintTop_toBottomOf="@+id/tvFoodName" />
 
         <TextView
@@ -103,8 +114,8 @@
             android:padding="4dp"
             android:textColor="#4E342E"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/ivFoodImage"
-            app:layout_constraintTop_toTopOf="@+id/ivFoodImage"
+            app:layout_constraintStart_toStartOf="@+id/cardFoodImage"
+            app:layout_constraintTop_toTopOf="@+id/cardFoodImage"
             tools:text="+3" />
 
         <Button
@@ -112,15 +123,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@android:color/white"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@null"
             android:text="Track order"
             android:textAllCaps="false"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivFoodImage"
+            app:layout_constraintTop_toBottomOf="@+id/cardFoodImage"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_greeting" />
 
-        <!-- Search bar -->
+        <!-- Search bar - Đã cập nhật để thêm EditText -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_search"
             android:layout_width="match_parent"
@@ -65,24 +65,32 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="8dp">
 
                 <ImageView
+                    android:id="@+id/iv_search_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/ic_search" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="search..."
-                    android:textColor="@color/gray"
+                    android:background="@null"
+                    android:hint="search..."
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
                     android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- Rest of the layout remains unchanged -->
         <!-- Horizontally scrollable promotion banners -->
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager_promo"
