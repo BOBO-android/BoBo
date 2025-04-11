@@ -96,11 +96,11 @@ public class MyAccountActivity extends AppCompatActivity {
 
         // xu ly update
         myAccountViewModel.getUpdateResult().observe(this, result -> {
-            showDiaLog(result, true);
+            showDiaLogSuccess(result);
         });
 
         myAccountViewModel.getUpdateErrorMessage().observe(this, error -> {
-            showDiaLog(error, false);
+            showDiaLog(error);
         });
 
         // Quan sát kết quả từ ImageViewModel
@@ -292,7 +292,7 @@ public class MyAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void showDiaLog(String message, boolean isSuccess) {
+    private void showDiaLog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MyAccountActivity.this);
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_error, null);
         builder.setView(dialogView);
@@ -311,15 +311,30 @@ public class MyAccountActivity extends AppCompatActivity {
             }
             errorbutton.setOnClickListener(v -> {
                 dialog.dismiss();
-                if (isSuccess) {
-                    Intent intent = new Intent(MyAccountActivity.this, MenuSideDrawerActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
             });
         } else {
             Toast.makeText(this, "Error: Cannot find btn_back_error Button in dialog", Toast.LENGTH_LONG).show();
         }
+        dialog.show();
+    }
+    private void showDiaLogSuccess(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyAccountActivity.this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_successfully, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        errorMessageTV = dialogView.findViewById(R.id.success_TV);
+        errorMessageTV.setText(message);
+        errorbutton = dialogView.findViewById(R.id.btn_back_success);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        errorbutton.setOnClickListener( v -> {
+            dialog.dismiss();
+            Intent intent = new Intent(MyAccountActivity.this, MenuSideDrawerActivity.class);
+            startActivity(intent);
+            finish();
+        });
         dialog.show();
     }
 
