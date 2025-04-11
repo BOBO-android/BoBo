@@ -4,15 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/card_border">
 
-    <ImageView
-        android:id="@+id/item_image"
+    <FrameLayout
         android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="Product"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_height="70dp">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="Product"
+            android:src="@mipmap/ic_launcher"
+            android:background="@drawable/rounded_image"
+            android:clipToOutline="true" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -26,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Name"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/item_price"
@@ -34,8 +43,7 @@
             android:layout_height="wrap_content"
             android:text="$12.99"
             android:textSize="18sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="1"
             android:gravity="center"
-            android:textSize="22dp" />
+            android:textSize="22sp" />
 
         <ImageButton
             android:id="@+id/btn_increase"

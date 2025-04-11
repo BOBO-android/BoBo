@@ -190,4 +190,12 @@ public class SearchFoodItemModel {
     public void setV(int v) {
         this.v = v;
     }
+
+    public boolean hasDiscount() {
+        return discount > 0;
+    }
+
+    public String getDiscountText() {
+        return discount + "% OFF";
+    }
 }

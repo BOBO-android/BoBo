@@ -5,7 +5,6 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -139,6 +138,7 @@
             android:textSize="16dp" />
 
         <Button
+            android:id="@+id/btn_register_store"
             android:layout_width="360dp"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"

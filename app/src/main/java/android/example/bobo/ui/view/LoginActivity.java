@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("username", response.getUser().getUsername());
                 editor.apply();
 
-                Intent intent = new Intent(LoginActivity.this, MenuSideDrawerActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 
                 startActivity(intent);
                 finish();
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_error, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
-        errorMessageTV = dialogView.findViewById(R.id.error_message);
+        errorMessageTV = dialogView.findViewById(R.id.error_message1);
         errorMessageTV.setText(message);
         errorbutton = dialogView.findViewById(R.id.btn_back_error);
         if (dialog.getWindow() != null) {
