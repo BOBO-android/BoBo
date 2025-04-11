@@ -38,8 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
         observeViewModel();
     }
 
-
-
     private void observeViewModel() {
         viewModel.getRegisterButtonClicked().observe(this, clicked -> {
             if (clicked != null && clicked) {

@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:background="@null"
         android:contentDescription="Close" />
-    <!-- Biểu tượng dấu kiểm -->
+
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"

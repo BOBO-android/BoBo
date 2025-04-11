@@ -14,6 +14,7 @@ import android.example.bobo.data.model.UploadResponse;
 import android.example.bobo.data.model.VerifyEmailRequest;
 import android.example.bobo.data.model.ForgotPasswordRequest;
 import android.example.bobo.data.model.ForgotPasswordResponse;
+import android.example.bobo.data.model.UserInformationResponse;
 import android.example.bobo.data.model.LoginRequest;
 import android.example.bobo.data.model.LoginResponse;
 import android.example.bobo.data.model.RegisterRequest;
@@ -24,6 +25,7 @@ import android.example.bobo.data.model.ResetPasswordRequest;
 import android.example.bobo.data.model.ResetPasswordResponse;
 import android.example.bobo.data.model.SearchFoodItemModel;
 import android.example.bobo.data.model.UserOrder;
+import android.example.bobo.data.model.UpdateAccountRequest;
 import android.example.bobo.data.model.VerifyRequest;
 import com.google.gson.annotations.SerializedName;
 
@@ -35,12 +37,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import java.util.List;
 import java.util.Objects;
-
 import okhttp3.MultipartBody;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -68,9 +65,11 @@ public interface ApiService {
     @POST("auth/reset-password")
     Call<ApiResponse<ResetPasswordResponse>> resetPassword(@Body ResetPasswordRequest request);
 
+    // Register
     @POST("auth/register")
     Call<ApiResponse<RegisterResponse>> register(@Body RegisterRequest request);
 
+    //Verify Code
     @POST("auth/verify")
     Call<ApiResponse<java.lang.Object>> verify(@Body VerifyRequest request);
   
@@ -107,5 +106,20 @@ public interface ApiService {
     Call<Void> verifyEmail(@Body VerifyEmailRequest request);
 
     @POST("store/resend-code")
-    Call<Void> resendCode(@Body ResendCodeRequest request);
+    Call<Void> resendCode1(@Body ResendCodeRequest request);
+
+    // Update user information
+    @PATCH("me/profile")
+    Call<ApiResponse<java.lang.Object>> updateAccount(
+            @Header("Authorization") String token,
+            @Body UpdateAccountRequest request
+    );
+
+    // Get all user information
+    @GET("me/profile")
+    Call<ApiResponse<UserInformationResponse>> userInformation(
+            @Header("Authorization") String token
+    );
+    @POST("auth/logout")
+    Call<ApiResponse<java.lang.Object>> logout(@Header("Authorization") String token);
 }
